@@ -1,26 +1,20 @@
-package guru.springframework.recipe.controllers.domain;
+package guru.springframework.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.util.Set;
-
+/**
+ * Created by jt on 6/13/17.
+ */
 @Entity
-public class Category {
+public class UnitOfMeasure {
 
-    @ManyToMany(mappedBy = "categories")
-    Set<Recipe> recipes;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
 
     public Long getId() {
         return id;

@@ -1,24 +1,25 @@
-package guru.springframework.recipe.controllers.domain;
+package guru.springframework.domain;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 @Entity
 public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String description;
     private BigDecimal amount;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private UnitOfMeasure uom;
+
     @ManyToOne
     private Recipe recipe;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    private UnitOfMeasure unitOfMeasure;
 
     public Long getId() {
         return id;
@@ -52,11 +53,11 @@ public class Ingredient {
         this.recipe = recipe;
     }
 
-    public UnitOfMeasure getUnitOfMeasure() {
-        return unitOfMeasure;
+    public UnitOfMeasure getUom() {
+        return uom;
     }
 
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
+    public void setUom(UnitOfMeasure uom) {
+        this.uom = uom;
     }
 }

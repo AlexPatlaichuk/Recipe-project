@@ -1,10 +1,11 @@
-package guru.springframework.recipe.controllers.domain;
+package guru.springframework.domain;
 
 import jakarta.persistence.*;
-
 import java.util.Set;
 
-
+/**
+ * Created by jt on 6/13/17.
+ */
 @Entity
 public class Recipe {
 
@@ -20,6 +21,9 @@ public class Recipe {
     private String url;
     private String directions;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
     @Lob
     private Byte[] image;
 
@@ -30,11 +34,10 @@ public class Recipe {
     private Notes notes;
 
     @ManyToMany
-    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "recipe_category",
+        joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
 
     public Long getId() {
         return id;
